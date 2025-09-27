@@ -1,6 +1,7 @@
 # Proyecto NOC
 
-El objetivo es crear una serie de tareas usando Arquitectura Limpia con TypeScript
+Desarrollo de una app de consola que nos permite grabar logs.
+Se utilizo Arquitectura Limpia como patron en Node.js con TypeScript
 
 # dev
 1. Clonar el archivo .env.template a .env
