@@ -4,13 +4,14 @@ El objetivo es crear una serie de tareas usando Arquitectura Limpia con TypeScri
 
 # dev
 1. Clonar el archivo .env.template a .env
-2. Configurar las variables de entorno
+2. Configurar las variables de entorno (puerto, credenciales email, prod - boolean)
 ```
-PORT=3000
+PORT=
 
+MAILER_SERVICE=
 MAILER_EMAIL=
 MAILER_SECRET_KEY=
 
-PROD=false
+PROD=
 ```
 
