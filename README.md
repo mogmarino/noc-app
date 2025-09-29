@@ -1,18 +1,17 @@
 # Proyecto NOC
 
-Desarrollo de una app de consola que nos permite grabar logs.
-Se utilizo Arquitectura Limpia como patron en Node.js con TypeScript
+El objetivo es crear una serie de tareas usando Arquitectura Limpia con TypeScript
 
 # dev
 1. Clonar el archivo .env.template a .env
-2. Configurar las variables de entorno (puerto, credenciales email, prod - boolean)
-```
-PORT=
+2. Configurar las variables de entorno
+3. Ejecutar el comando ```npm install```
+4. Levantar las bases de datos con el comando
+   ```
+   docker compose up -d
+   ```
+5. Ejecutar ```npm run dev```
 
-MAILER_SERVICE=
-MAILER_EMAIL=
-MAILER_SECRET_KEY=
 
-PROD=
-```
-
+## Obtener Gmail Key
+[Google AppPasswords](https://myaccount.google.com/u/0/apppasswords)

@@ -4,16 +4,28 @@ import { LogRepositoryImpl } from "../infrastructure/repositories/log.repository
 import { CronService } from "./cron/cron-service";
 import { EmailService } from "./email/email.service";
 import { SendEmailLogs } from '../domain/use-cases/email/send-logs';
+import { MongoLogDatasource } from "../infrastructure/datasources/mongo-log.datasource";
+import { LogSeverityLevel } from "../domain/entities/log.entity";
+import { PostgresLogDatasource } from "../infrastructure/datasources/postgres-log.datasource";
+import { CheckServiceMultiple } from "../domain/use-cases/checks/check-service-multiple";
 
-const fileSystemLogRepository = new LogRepositoryImpl(
+const fsLogRepository = new LogRepositoryImpl(
     new FileSystemDatasource()
+)
+
+const mongoLogRepository = new LogRepositoryImpl(
+    new MongoLogDatasource()
+)
+
+const postgresLogRepository = new LogRepositoryImpl(
+    new PostgresLogDatasource()
 )
 
 const mailerService = new EmailService()
 
 export class Server {
 
-    public static start() {
+    public static async start() {
 
         console.log("Server started...");
 
@@ -34,25 +46,27 @@ export class Server {
             ]) */
 
         //ENVIO DE MAILS CON UN CASO DE USO
-        new SendEmailLogs(
+       /*  new SendEmailLogs(
             mailerService,
             fileSystemLogRepository
         ).execute([
             'marcelo.marino@andessalud.ar',
             'mogmarino@hotmail.com'
         ])
-
+        */
         
 
-        return
+        /* const logs = await logRepository.getLogs(LogSeverityLevel.high)
+        console.log(logs); */
+        
         CronService.createJob(
             '*/4 * * * * *',
             () => {
                 const date = new Date().toDateString()
                 console.log(`Cada 4 segundos - ${date}`);
                 const url = 'http://localhost:3000/posts'
-                new CheckService(
-                    fileSystemLogRepository,
+                new CheckServiceMultiple(
+                    [fsLogRepository, mongoLogRepository, postgresLogRepository],
                     () => {console.log(`${url} is ok`)},
                     (error) => {console.log(error)}
                 ).execute(url)

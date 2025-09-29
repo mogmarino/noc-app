@@ -11,6 +11,12 @@ export interface LogEntityOptions {
     origin: string
 }
 
+enum LevelPostgres {
+    HIGH,
+    MEDIUM,
+    LOW
+}
+
 export class LogEntity {
     public level: LogSeverityLevel
     public message: string
@@ -26,6 +32,7 @@ export class LogEntity {
     }
 
     static fromJson(json: string): LogEntity {
+        json = json == '' ? '{}' :  json
         const {level, message, createdAt, origin} = JSON.parse(json)
         const log = new LogEntity({
             level,
@@ -36,4 +43,19 @@ export class LogEntity {
         // log.createdAt = new Date(createdAt)
         return log
     }
+
+    static fromObject(object: { [key: string]: any }): LogEntity{
+        const {message, level, origin, createdAt} = object
+
+        const log = new LogEntity({
+            level,
+            message,
+            origin,
+            createdAt
+        })
+
+        return log
+    }
+
+    
 }
