@@ -4,5 +4,8 @@ dist/
 logs/
 .env
 mongo/
+mongo-test/
 /generated/prisma
 postgres/
+postgres-test/
+coverage/

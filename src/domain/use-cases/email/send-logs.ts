@@ -19,8 +19,10 @@ export class SendEmailLogs implements SendLogEmailUseCase{
         try {
             const sent = await this.emailService.sendEmailWithLogs(to)
 
+            
+
             if(!sent)
-                throw new Error('Email logs not sent fucking asshole')
+                throw new Error('Email logs not sent')
 
             const log = new LogEntity({
                 origin: 'send-logs.ts',

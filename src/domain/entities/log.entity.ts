@@ -11,11 +11,7 @@ export interface LogEntityOptions {
     origin: string
 }
 
-enum LevelPostgres {
-    HIGH,
-    MEDIUM,
-    LOW
-}
+
 
 export class LogEntity {
     public level: LogSeverityLevel
@@ -37,7 +33,7 @@ export class LogEntity {
         const log = new LogEntity({
             level,
             message,
-            createdAt,
+            createdAt: new Date(createdAt),
             origin
         })
         // log.createdAt = new Date(createdAt)
